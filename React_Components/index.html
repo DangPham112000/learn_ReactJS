@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <!-- 
+        React element types: string, function/class
+
+        *Hooks hỗ trợ function component không thua kém gì class thậm chí có nhiều ưu điểm hơn
+        
+        class hiện giờ được sử dụng để ứng dụng tính kế thừa , các tính hướng đối tượng:
+            vì cú pháp class hỗ trợ từ khoá là extends
+     -->
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const root = document.getElementById('root');
+
+        function Footer() {
+            return (
+                <div className='footer'>New footer</div>
+            )
+        }
+
+        class Content extends React.Component {
+            render() {
+                return (
+                    <div className='content'>New content</div>
+                )
+            }
+        }
+
+        const app = (
+            <div className="wrapper">
+                <div className="header">Header</div>
+                <Content/>
+                <Footer/>
+            </div>
+        );
+    
+        ReactDOM.render(app, root);
+
+// =======================================================
+        // Bài tập
+
+        function PostItem() {
+            const imgSrc = "https://cdn.fullstack.edu.vn/f8-learning/blog_posts/311/6147f04e762ed.png";
+            const name = "C#(.NET) - Tương tác với file Excel";
+            const desc = 'Bạn có kiến thức ngôn ngữ C#! Bạn muốn thực hiện tương tác với file excel.';
+            const published = '2 ngày trước·5 phút đọc';
+            return (
+                <div className="post-item">
+                    <img src={imgSrc} alt={name}/>
+                    <h2 className="post-title">{name}</h2>
+                    <p className="post-desc">{desc}</p>
+                    <p className="post-published">{published}</p>
+                </div>
+            );
+        }
+        
+        const app2 = (
+            <div className="posts-list">
+                <div className="post-item">
+                    <img src="https://cdn.fullstack.edu.vn/f8-learning/blog_posts/311/6147f04e762ed.png" alt="C#(.NET) - Tương tác với file Excel"/>
+                    <h2 className="post-title">C#(.NET) - Tương tác với file Excel</h2>
+                    <p className="post-desc">Bạn có kiến thức ngôn ngữ C#! Bạn muốn thực hiện tương tác với file excel.</p>
+                    <p className="post-published">2 ngày trước·5 phút đọc</p>
+                </div>
+                <PostItem/>
+                <PostItem/>
+                <PostItem/>
+                <PostItem/>
+            </div>
+        );
+        ReactDOM.render(app2, root);
+
+        
+    </script>
+</body>
+</html>
