@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+        Props
+
+        - React elements
+            - Sử dụng props giống như với attribute của thẻ HTML
+            - 2 props class, for => className, htmlFor (for của thẻ label)
+            - Phải tuân theo qui ước có sẵn
+        - React components
+            - Sử dụng props giống như đối số cho Function
+            - Tự do đặt tên props
+                - Đặt theo camelCase
+                - *Có thể bao gồm dấu gạch ngang (Không nên)
+        - Chú ý: 
+            - Prop 'key' là prop đặc biệt (chỉ sử dụng cho vòng lặp có react components/elements)
+            - Props cơ bản là đối số của component
+                => Props có thể là bất cứ kiểu dữ liệu gì (ví dụ: mảng, callback)
+            - Sử dụng destructuring
+    -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const root = document.getElementById('root');
+
+        // PostItem.js
+        function PostItem({
+            imgSrc, // đây là đang sử dụng distructuring
+            name,
+            desc,
+            published,
+            callback = () => { } // sử dụng distructuring sẽ đặt được các giá trị default cho các prop này, tránh bị lỗi khi các component khác không truyền prop này
+        }) {
+
+            callback(Math.random())
+
+            return (
+                // đây là React elements
+                <div className="post-item">
+                    <img src={imgSrc} alt={name} />
+                    <h2 className="post-title">{name}</h2>
+                    <p className="post-desc">{desc}</p>
+                    <p className="post-published">{published}</p>
+                </div>
+            );
+        }
+
+        // App.js
+        // Đây là React components
+        function App() {
+            return (
+                <div className="posts-list">
+                    <PostItem
+                        imgSrc="https://cdn.fullstack.edu.vn/f8-learning/blog_posts/311/6147f04e762ed.png"
+                        name="1 C#(.NET) - Tương tác với file Excel"
+                        desc='1 Bạn có kiến thức ngôn ngữ C#! Bạn muốn thực hiện tương tác với file excel.'
+                        published='1 2 ngày trước·5 phút đọc'
+                        data={[{ a: 1 }, { b: 2 }]}
+                        callback={(random) => {
+                            console.log('random: ', random);
+                        }}
+                    />
+                    <PostItem
+                        imgSrc="https://cdn.fullstack.edu.vn/f8-learning/blog_posts/311/6147f04e762ed.png"
+                        name="2 C#(.NET) - Tương tác với file Excel"
+                        desc='2 Bạn có kiến thức ngôn ngữ C#! Bạn muốn thực hiện tương tác với file excel.'
+                        published='2 2 ngày trước·5 phút đọc'
+                    />
+                    <PostItem
+                        imgSrc="https://cdn.fullstack.edu.vn/f8-learning/blog_posts/311/6147f04e762ed.png"
+                        name="3 C#(.NET) - Tương tác với file Excel"
+                        desc='3 Bạn có kiến thức ngôn ngữ C#! Bạn muốn thực hiện tương tác với file excel.'
+                        published='3 2 ngày trước·5 phút đọc'
+                    />
+                    <PostItem />
+                    <PostItem />
+                    <PostItem />
+                </div>
+            );
+        }
+
+
+        ReactDOM.render(<App />, root);
+
+
+    </script>
+</body>
+
+</html>
