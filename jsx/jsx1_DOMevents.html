@@ -99,6 +99,20 @@
 </head>
 
 <body>
+    <!--         
+        - Xử lý DOM events với mindset đi làm
+        Đối với UI component
+            chỉ nhận dữ liệu và hiển thị thôi
+            không xử lý logic nghiệp vụ trong UI component
+
+        Viết function trong container (App component)
+            Khi xử lý event thì tạo 1 function trong container 
+            và đặt tên với cú pháp thay 'on' bằng 'handle' (onClick => handleClick)
+            Sau đó truyền function vào props của UI component để xử lý event
+            
+            Ở hàm tạo UIc xử lý event bằng tạo hàm trong react element (onClick={()=>{callback()}})
+            sau đó dùng lệnh gọi hàm (đã được truyền vào) trong hàm tạo
+     -->
     <div id="root"></div>
 
     <script type="text/babel">
@@ -289,7 +303,8 @@
         // CourseItem
         // destructuring
         function CourseItem({
-            course
+            course,
+            onClick
         }) {
             return (
                 <div className="course-item">
@@ -297,9 +312,7 @@
                     <div className="course-info">
                         <h2
                             className="course-title"
-                            onClick={() => {
-                                alert(course.title);
-                            }}
+                            onClick={() => {onClick(course.title)}}
                         >
                             {course.title}
                         </h2>
@@ -312,6 +325,10 @@
             );
         }
 
+        function onClick(title) {
+            alert(title);
+        }
+
         // App
         function App() {
             return (
@@ -321,6 +338,7 @@
                             <CourseItem
                                 key={index}
                                 course={course}
+                                onClick={onClick}
                             />
                         );
                     })}

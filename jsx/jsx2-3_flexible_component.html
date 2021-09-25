@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            margin: 16px 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        .flex-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: #2d4eff;
+            color: #fff;
+            font-size: 24px;
+            border: none;
+            border-radius: 32px;
+            box-shadow: 0px 0px 12px -6px rgb(0 0 0);
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .flex-btn:hover {
+            opacity: 1;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- 
+        - Khi có href khi có onclick =>  lúc là button lúc là thẻ a 
+            cho dù là thẻ a hay button phải y như nhau
+     -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Button({
+            className,
+            title,
+            href,
+            onClick
+        }) {
+            let Component = 'button';
+
+            const props = { className }
+            
+            if (href) {
+                Component = 'a';
+                props.href = href;
+            }
+            if (onClick) {
+                props.onClick = () => onClick(href);
+            }
+            
+            return (
+                <Component { ...props }>{title}</Component>
+            );
+        }
+
+        // App
+        function App() {            
+
+            function onClick(href) {
+                console.log(Math.random());
+                if (href) {
+                    console.log(href);
+                }
+            }
+            
+            return (
+                <div className="wrapper">
+                    <Button
+                        className="flex-btn"
+                        title="click me!"
+                        href="https://google.com"
+                        onClick={onClick}
+                    />
+
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
+

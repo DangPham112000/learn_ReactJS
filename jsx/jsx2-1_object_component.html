@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            margin: 16px 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        - Component do chúng ta định nghĩa phải viết hoa ký tự đầu
+            - Chọn component trong 1 object
+        - Boolean, Null & Undefined không được render
+        - Kết hợp toán tử logic để render theo điều kiện
+     -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        // object chứa các component nên viết hoa theo qui ước của React component
+        const Form = {
+            Input: () => {
+                return <input />
+            },
+            Checkbox: () => {
+                return <input type="checkbox" />
+            }
+        }
+
+        // App
+        function App() {
+
+            const type = 'Input';
+
+            const Component = Form[type];
+            
+            return (
+                <div className="wrapper">
+                    <Form.Checkbox /> {/*cách đơn giản*/}
+                    <Component /> {/*khi cần custom theo biến yêu cầu bên ngoài*/}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>

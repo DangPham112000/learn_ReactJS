@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            margin: 16px 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        - Boolean, Null & Undefined không được render
+        - Kết hợp toán tử logic để render theo điều kiện
+     -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        // Nếu lần đầu đến web thì hiển thị Chào mừng bạn đến với F8 còn không phải thì k hiển thị gì cả
+        let firstAccess = true;
+
+        // Nếu có title thì hiển thị title, nếu k có thì hiển thị content k có cả 2 thì k hiển thị gì
+        function TitleContent({ title, content }) {
+            return (
+                <h2>{title || content}</h2> // Logic OR
+            );
+        }
+
+        // App
+        function App() {
+            return (
+                <div className="wrapper">
+                    <h1>{firstAccess && 'Chào mừng bạn đến với F8'}</h1> {/* Logic AND */}
+
+                    <TitleContent
+                        // title='Học lâp trình'
+                        content='Học để đi làm kiếm thật nhiều tiền 👩‍💻👨‍💻'
+                    />
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
