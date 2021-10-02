@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+
+    <!--
+        - render props: truyền 1 function dùng để render item qua props. Thông thường là bằng children prop
+    -->
+
+    <div id="root"></div>
+
+    <script type="text/babel"> 
+
+        // Thông thường
+        function List1({ items }) {
+            return (
+                <ul>
+                    { items.map((item, index) => <li key={index}>{item}</li>) }    
+                </ul>
+            );
+        }
+
+        // Áp dụng render props
+        function List2({ items, children }) {
+            //                      rest                spread
+            return (
+                <ul>
+                    { items.map((...props) => children(...props)) }
+                </ul>
+            );
+                    
+            // Siêu vắn tắt => Không khuyến khích
+            // return (
+            //     <ul>
+            //         { items.map(children) }
+            //     </ul>
+            // );
+        }
+
+        function App() {
+            const cars = ['BMW', 'Mazda', 'Huyndai'];
+            return (
+                <div id="wrapper">
+                    <List1 items={cars} />
+                    <List2 items={cars} >{ (item, index) => <li key={index}>{item}</li> }</List2>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+
+    </script>
+</body>
+
+</html>

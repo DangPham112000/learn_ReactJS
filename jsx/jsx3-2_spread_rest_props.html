@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <!-- Thư viện React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- Thư viện ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Thư viện Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+
+    <!--
+        - spread / rest props
+    -->
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+    
+        // khi input cần truyền quá nhiều props => cực
+        function Input1({ label, type, placeholder }) {
+            return (
+                <div>
+                    <label>{label}</label>
+                    <input type={type} placeholder={placeholder} />
+                </div>
+            );
+        }
+
+        // ez to truyền nhiều props
+        function Input2({ label, ...inputProps}) {
+            return (
+                <div>
+                    <label>{label}</label>
+                    <input {...inputProps} />
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div id="wrapper">
+                    <Input1 
+                        label="Your name" 
+                        type="text"
+                        placeholder="Ưhat yoủ name?"
+                        title="Day la input"
+                        onFocus={() => {
+                            console.log(Math.random());
+                        }}
+                    />
+
+                    
+                    <Input2
+                        label="Your name" 
+                        type="text"
+                        placeholder="Ưhat yoủ name?"
+                        title="Day la input"
+                        onFocus={() => {
+                            console.log(Math.random());
+                        }}
+                    />
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+
+    </script>
+</body>
+
+</html>
